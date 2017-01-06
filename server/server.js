@@ -4,6 +4,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 
 var app = module.exports = loopback();
+var path = require('path');
 
 app.start = function() {
   // start the web server
@@ -30,7 +31,9 @@ let config = {
       name: "ds2",
       connector: "memory"
     }
-  }
+  },
+
+  modelSources: [path.resolve(path.join(__dirname,'mymodels'))]
 
 };
 
@@ -39,8 +42,15 @@ let config = {
 boot(app, config, function(err) {
 
   Object.keys(app.dataSources).forEach((key) => {
-  console.log(app.dataSources[key].settings.name)
-  })
+    console.log("datasource:", app.dataSources[key].settings.name);
+  });
+
+  console.log("models folder is %s",config.modelSources);
+  
+  Object.keys(app.models).forEach((key) => {
+    console.log("model:",app.models[key].modelName);
+  });
+
 
   if (err) throw err;
 
