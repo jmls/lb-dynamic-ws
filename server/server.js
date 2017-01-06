@@ -33,7 +33,16 @@ let config = {
     }
   },
 
-  modelSources: [path.resolve(path.join(__dirname,'mymodels'))]
+  appRootDir: __dirname,
+
+  modelSources: ['./mymodels'],
+
+  models: {
+    "ConfigFile": {
+      public: false,
+      dataSource: false
+    }
+  },
 
 };
 
@@ -46,11 +55,8 @@ boot(app, config, function(err) {
   });
 
   console.log("models folder is %s",config.modelSources);
-  
-  Object.keys(app.models).forEach((key) => {
-    console.log("model:",app.models[key].modelName);
-  });
 
+  console.log(app.models.ConfigFile.settings)
 
   if (err) throw err;
 
