@@ -37,6 +37,11 @@ let config = {
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
 boot(app, config, function(err) {
+
+  Object.keys(app.dataSources).forEach((key) => {
+  console.log(app.dataSources[key].settings.name)
+  })
+
   if (err) throw err;
 
   // start the server if `$ node server.js`
